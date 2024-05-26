@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de Fichas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Criação de Fichas</h1>
+
+        <section id="informacoes-gerais">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="nivel">Nível</label>
+                    <input type="number" class="form-control" id="nivel" name="nivel" min="1" max="30" value="1">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="origem-select">Origem</label>
+                    <select id="origem-select" name="origem" class="form-control">
+                        <option value="" selected>-</option>
+                        <option value="Inato">Inato</option>
+                        <option value="Herdado">Herdado</option>
+                        <option value="Derivado">Derivado</option>
+                        <option value="Restringido">Restringido</option>
+                        <option value="Feto Amaldiçoado">Feto Amaldiçoado</option>
+                        <option value="Sem técnica">Sem técnica</option>
+                        <option value="Corpo Amaldiçoado">Corpo Amaldiçoado</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="especializacao">Especialização</label>
+                    <select id="especializacao" name="especializacao" class="form-control">
+                        <option value="" selected>-</option>
+                        <option value="Lutador">Lutador</option>
+                        <option value="Especialista em Combate">Especialista em Combate</option>
+                        <option value="Especialista em Técnica">Especialista em Técnica</option>
+                        <option value="Suporte">Suporte</option>
+                        <option value="Controlador">Controlador</option>
+                        <option value="Restringido">Restringido</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="maestria">Maestria</label>
+                    <input type="number" class="form-control" id="maestria" name="maestria" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="experiencia">Experiência</label>
+                    <input type="number" class="form-control" id="experiencia" name="experiencia">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="tecnica">Técnica</label>
+                    <input type="text" class="form-control" id="tecnica" name="tecnica" >
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="jogador">Jogador</label>
+                    <input type="text" class="form-control" id="jogador" name="jogador">
+                </div>
+            </div>
+        </section>
+
+        <section id="pontos">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="pvMax">Pontos de Vida Máximos (PV Max):</label>
+                    <input type="number" id="pvMax" class="form-control" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="pvAtual">Pontos de Vida Atuais (PV Atual):</label>
+                    <input type="number" id="pvAtual" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label for="pvTemp">Pontos de Vida Temporários (PV Temp):</label>
+                    <input type="number" id="pvTemp" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label id="pe-label" for="peMax">Pontos de Energia Máximos (PE Max):</label>
+                    <input type="number" id="peMax" class="form-control" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label id="pe-atual-label" for="peAtual">Pontos de Energia Atuais (PE Atual):</label>
+                    <input type="number" id="peAtual" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label id="pe-temp-label" for="peTemp">Pontos de Energia Temporários (PE Temp):</label>
+                    <input type="number" id="peTemp" class="form-control">
+                </div>
+            </div>
+        </section>
+
+        <section id="atributos">
+            <h2>Atributos</h2>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label for="FOR">Força (FOR):</label>
+                    <input type="number" id="FOR" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-FOR">0</span></small>
+                </div>
+                <div class="col-md-4">
+                    <label for="DEX">Destreza (DEX):</label>
+                    <input type="number" id="DEX" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-DEX">0</span></small>
+                </div>
+                <div class="col-md-4">
+                    <label for="CON">Constituição (CON):</label>
+                    <input type="number" id="CON" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-CON">0</span></small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="INT">Inteligência (INT):</label>
+                    <input type="number" id="INT" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-INT">0</span></small>
+                </div>
+                <div class="col-md-4">
+                    <label for="SAB">Sabedoria (SAB):</label>
+                    <input type="number" id="SAB" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-SAB">0</span></small>
+                </div>
+                <div class="col-md-4">
+                    <label for="CAR">Carisma (CAR):</label>
+                    <input type="number" id="CAR" class="form-control" value="10" min="1" max="30">
+                    <small class="form-text text-muted">Modificador: <span id="mod-CAR">0</span></small>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container my-4">
+        <h2 class="text-center">Perícias</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Atributo</th>
+                            <th>Outros</th>
+                            <th>Mt.</th>
+                            <th>Es.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atletismo</td>
+                            <td><span class="atributo" data-atributo="FOR">FOR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Luta</td>
+                            <td><span class="atributo" data-atributo="FOR">FOR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Acrobacia</td>
+                            <td><span class="atributo" data-atributo="DEX">DEX</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Furtividade</td>
+                            <td><span class="atributo" data-atributo="DEX">DEX</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Pontaria</td>
+                            <td><span class="atributo" data-atributo="DEX">FOR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Prestidigitação</td>
+                            <td><span class="atributo" data-atributo="DEX">DEX</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Reflexos</td>
+                            <td><span class="atributo" data-atributo="DEX">DEX</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Fortitude</td>
+                            <td><span class="atributo" data-atributo="CON">CON</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Integridade</td>
+                            <td><span class="atributo" data-atributo="CON">CON</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Intuição</td>
+                            <td><span class="atributo" data-atributo="SAB">SAB</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Medicina</td>
+                            <td><span class="atributo" data-atributo="SAB">SAB</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Percepção</td>
+                            <td><span class="atributo" data-atributo="SAB">SAB</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Ocultismo</td>
+                            <td><span class="atributo" data-atributo="SAB">SAB</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Vontade</td>
+                            <td><span class="atributo" data-atributo="SAB">SAB</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Atributo</th>
+                            <th>Outros</th>
+                            <th>Mt.</th>
+                            <th>Es.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Astúcia</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Feitiçaria</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Investigação</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>História</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control oficio" name="oficio1">
+                                    <option value="">Ofício</option>
+                                    <option value="Ferreiro">Ferreiro</option>
+                                    <option value="Cozinheiro">Cozinheiro</option>
+                                    <option value="Alquimista">Alquimista</option>
+                                    <option value="Alfaiate">Alfaiate</option>
+                                    <option value="Armeiro">Armeiro</option>
+                                    <option value="Medicina">Medicina</option>
+                                    <option value="Canalizador">Canalizador</option>
+                                    <option value="Nenhum">Nenhum</option>
+                                </select>
+                            </td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control oficio" name="oficio2">
+                                    <option value="">Ofício</option>
+                                    <option value="Ferreiro">Ferreiro</option>
+                                    <option value="Cozinheiro">Cozinheiro</option>
+                                    <option value="Alquimista">Alquimista</option>
+                                    <option value="Alfaiate">Alfaiate</option>
+                                    <option value="Armeiro">Armeiro</option>
+                                    <option value="Medicina">Medicina</option>
+                                    <option value="Canalizador">Canalizador</option>
+                                    <option value="Nenhum">Nenhum</option>
+                                </select>
+                            </td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="form-control oficio" name="oficio3">
+                                    <option value="">Ofício</option>
+                                    <option value="Ferreiro">Ferreiro</option>
+                                    <option value="Cozinheiro">Cozinheiro</option>
+                                    <option value="Alquimista">Alquimista</option>
+                                    <option value="Alfaiate">Alfaiate</option>
+                                    <option value="Armeiro">Armeiro</option>
+                                    <option value="Medicina">Medicina</option>
+                                    <option value="Canalizador">Canalizador</option>
+                                    <option value="Nenhum">Nenhum</option>
+                                </select>
+                            </td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Religião</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Tecnologia</td>
+                            <td><span class="atributo" data-atributo="INT">INT</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Persuasão</td>
+                            <td><span class="atributo" data-atributo="CAR">CAR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Enganação</td>
+                            <td><span class="atributo" data-atributo="CAR">CAR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Intimidação</td>
+                            <td><span class="atributo" data-atributo="CAR">CAR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                        <tr>
+                            <td>Performance</td>
+                            <td><span class="atributo" data-atributo="CAR">CAR</span></td>
+                            <td><input type="number" class="form-control outros" value="0"></td>
+                            <td><input type="checkbox" class="maestria"></td>
+                            <td><input type="checkbox" class="especializacaoPr"></td>
+                            <td class="total">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
