@@ -44,3 +44,15 @@ input[type="checkbox"] {
 select.form-control {
     width: 100%;
 }
+
+.progress {
+    height: 20px;
+}
+
+.progress-bar {
+    background-color: #28a745;
+}
+
+.progress-bar.bg-info {
+    background-color: #17a2b8;
+}
