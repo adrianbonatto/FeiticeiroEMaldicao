@@ -63,9 +63,16 @@ function getMaiorModificador(atributos) {
     return Math.max(...atributos.map(atributo => getModificador(atributo)));
 }
 
+function getEspecializacaoNivel(especializacaoId) {
+    return parseInt(document.querySelector(`#${especializacaoId}-nivel`).value) || 0;
+}
+
 function calcularPontosDeVida() {
-    const nivel = getNivel();
-    const especializacao = document.querySelector('#especializacao').value;
+    const nivelGeral = getNivel();
+    const especializacao1 = document.querySelector('#especializacao1').value;
+    const especializacao2 = document.querySelector('#especializacao2').value;
+    const nivel1 = getEspecializacaoNivel('especializacao1');
+    const nivel2 = getEspecializacaoNivel('especializacao2');
     const modCon = getModificador('CON');
     let pvMax = 0;
 
@@ -87,9 +94,12 @@ function calcularPontosDeVida() {
         'Restringido': 7
     };
 
-    pvMax = pvBase[especializacao] + modCon;
-    for (let i = 2; i <= nivel; i++) {
-        pvMax += pvIncremento[especializacao] + modCon;
+    const especializacaoPrincipal = nivel1 >= nivel2 ? especializacao1 : especializacao2;
+    pvMax = pvBase[especializacaoPrincipal] + modCon;
+
+    for (let i = 2; i <= nivelGeral; i++) {
+        const incremento = i <= nivel1 ? pvIncremento[especializacao1] : pvIncremento[especializacao2];
+        pvMax += incremento + modCon;
     }
 
     document.querySelector('#pvMax').value = pvMax;
@@ -97,8 +107,11 @@ function calcularPontosDeVida() {
 }
 
 function calcularPontosDeEnergia() {
-    const nivel = getNivel();
-    const especializacao = document.querySelector('#especializacao').value;
+    const nivelGeral = getNivel();
+    const especializacao1 = document.querySelector('#especializacao1').value;
+    const especializacao2 = document.querySelector('#especializacao2').value;
+    const nivel1 = getEspecializacaoNivel('especializacao1');
+    const nivel2 = getEspecializacaoNivel('especializacao2');
     let peMax = 0;
 
     const peBase = {
@@ -119,9 +132,10 @@ function calcularPontosDeEnergia() {
         'Restringido': 4
     };
 
-    peMax = peBase[especializacao];
-    for (let i = 2; i <= nivel; i++) {
-        peMax += peIncremento[especializacao];
+    peMax = peBase[especializacao1] * nivel1 + peBase[especializacao2] * nivel2;
+    for (let i = 2; i <= nivelGeral; i++) {
+        const incremento = i <= nivel1 ? peIncremento[especializacao1] : peIncremento[especializacao2];
+        peMax += incremento;
     }
 
     document.querySelector('#peMax').value = peMax;
@@ -176,6 +190,21 @@ document.querySelectorAll('#INT, #SAB, #CAR').forEach(element => {
 });
 document.querySelector('#pvAtual').addEventListener('input', atualizarBarraVida);
 document.querySelector('#peAtual').addEventListener('input', atualizarBarraEnergia);
+
+document.querySelectorAll('#especializacao1, #especializacao2, #especializacao1-nivel, #especializacao2-nivel').forEach(element => {
+    element.addEventListener('change', () => {
+        const nivelGeral = getNivel();
+        const nivel1 = getEspecializacaoNivel('especializacao1');
+        const nivel2 = getEspecializacaoNivel('especializacao2');
+        if (nivel1 + nivel2 > nivelGeral) {
+            alert('A soma dos níveis das especializações não pode exceder o nível geral.');
+            return;
+        }
+        calcularPontosDeVida();
+        calcularPontosDeEnergia();
+        atualizarLabelEnergia();
+    });
+});
 
 calcularPontosDeVida();
 calcularPontosDeEnergia();
