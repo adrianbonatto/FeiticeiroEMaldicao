@@ -35,8 +35,10 @@ function calcularTotal() {
 
     document.querySelectorAll('tbody tr').forEach(row => {
         const outros = parseInt(row.querySelector('.outros').value) || 0;
-        const mt = row.querySelector('.maestria').checked ? maestria : 0;
-        const es = row.querySelector('.especializacaoPr').checked ? Math.ceil(maestria / 2) : 0;
+        const maestriaElement = row.querySelector('.maestria');
+        const especializacaoPrElement = row.querySelector('.especializacaoPr');
+        const mt = maestriaElement && maestriaElement.checked ? maestria : 0;
+        const es = especializacaoPrElement && especializacaoPrElement.checked ? Math.ceil(maestria / 2) : 0;
         const modificador = getModificador(row.querySelector('.atributo').getAttribute('data-atributo'));
 
         const total = base + outros + mt + es + modificador;
@@ -95,11 +97,18 @@ function calcularPontosDeVida() {
     };
 
     const especializacaoPrincipal = nivel1 >= nivel2 ? especializacao1 : especializacao2;
+    const especializacaoSecundaria = nivel1 >= nivel2 ? especializacao2 : especializacao1;
+    const nivelPrincipal = nivel1 >= nivel2 ? nivel1 : nivel2;
+    const nivelSecundario = nivel1 >= nivel2 ? nivel2 : nivel1;
+
     pvMax = pvBase[especializacaoPrincipal] + modCon;
 
     for (let i = 2; i <= nivelGeral; i++) {
-        const incremento = i <= nivel1 ? pvIncremento[especializacao1] : pvIncremento[especializacao2];
-        pvMax += incremento + modCon;
+        if (i <= nivelPrincipal) {
+            pvMax += pvIncremento[especializacaoPrincipal] + modCon;
+        } else {
+            pvMax += pvIncremento[especializacaoSecundaria] + modCon;
+        }
     }
 
     document.querySelector('#pvMax').value = pvMax;
@@ -107,12 +116,17 @@ function calcularPontosDeVida() {
 }
 
 function calcularPontosDeEnergia() {
+    console.log('calcularPontosDeEnergia function called'); // Debugging line
     const nivelGeral = getNivel();
     const especializacao1 = document.querySelector('#especializacao1').value;
     const especializacao2 = document.querySelector('#especializacao2').value;
     const nivel1 = getEspecializacaoNivel('especializacao1');
     const nivel2 = getEspecializacaoNivel('especializacao2');
     let peMax = 0;
+
+    console.log('Nivel Geral:', nivelGeral);
+    console.log('Especializacao 1:', especializacao1, 'Nivel 1:', nivel1);
+    console.log('Especializacao 2:', especializacao2, 'Nivel 2:', nivel2);
 
     const peBase = {
         'Lutador': 4,
@@ -132,10 +146,19 @@ function calcularPontosDeEnergia() {
         'Restringido': 4
     };
 
-    peMax = peBase[especializacao1] * nivel1 + peBase[especializacao2] * nivel2;
+    const especializacaoPrincipal = nivel1 >= nivel2 ? especializacao1 : especializacao2;
+    const especializacaoSecundaria = nivel1 >= nivel2 ? especializacao2 : especializacao1;
+    const nivelPrincipal = nivel1 >= nivel2 ? nivel1 : nivel2;
+    const nivelSecundario = nivel1 >= nivel2 ? nivel2 : nivel1;
+
+    peMax = peBase[especializacaoPrincipal];
+
     for (let i = 2; i <= nivelGeral; i++) {
-        const incremento = i <= nivel1 ? peIncremento[especializacao1] : peIncremento[especializacao2];
-        peMax += incremento;
+        if (i <= nivelPrincipal) {
+            peMax += peIncremento[especializacaoPrincipal];
+        } else {
+            peMax += peIncremento[especializacaoSecundaria];
+        }
     }
 
     document.querySelector('#peMax').value = peMax;
@@ -143,12 +166,13 @@ function calcularPontosDeEnergia() {
 }
 
 function atualizarLabelEnergia() {
-    const especializacao = document.querySelector('#especializacao').value.toLowerCase();
+    const especializacao1 = document.querySelector('#especializacao1').value.toLowerCase();
+    const especializacao2 = document.querySelector('#especializacao2').value.toLowerCase();
     const peLabel = document.querySelector('#pe-label');
     const peAtualLabel = document.querySelector('#pe-atual-label');
     const peTempLabel = document.querySelector('#pe-temp-label');
 
-    if (especializacao === 'restringido') {
+    if (especializacao1 === 'restringido' || especializacao2 === 'restringido') {
         peLabel.textContent = 'Pontos de Vigor Máximos (PV Max):';
         peAtualLabel.textContent = 'Pontos de Vigor Atuais (PV Atual):';
         peTempLabel.textContent = 'Pontos de Vigor Temporários (PE Temp):';
@@ -175,11 +199,6 @@ function atualizarBarraEnergia() {
     document.querySelector('#pe-bar').ariaValueNow = pePercent;
 }
 
-document.querySelector('#especializacao').addEventListener('change', () => {
-    calcularPontosDeVida();
-    calcularPontosDeEnergia();
-    atualizarLabelEnergia();
-});
 document.querySelector('#nivel').addEventListener('input', () => {
     calcularPontosDeVida();
     calcularPontosDeEnergia();
@@ -204,6 +223,13 @@ document.querySelectorAll('#especializacao1, #especializacao2, #especializacao1-
         calcularPontosDeEnergia();
         atualizarLabelEnergia();
     });
+});
+
+// Ensure recalculations on page load
+document.addEventListener('DOMContentLoaded', () => {
+    calcularPontosDeVida();
+    calcularPontosDeEnergia();
+    atualizarLabelEnergia();
 });
 
 calcularPontosDeVida();

@@ -30,18 +30,6 @@
                         <option value="Corpo Amaldiçoado">Corpo Amaldiçoado</option>
                     </select>
                 </div>
-                <div class="form-group col-md-4">
-                    <label for="especializacao">Especialização</label>
-                    <select id="especializacao" name="especializacao" class="form-control">
-                        <option value="" selected>-</option>
-                        <option value="Lutador">Lutador</option>
-                        <option value="Especialista em Combate">Especialista em Combate</option>
-                        <option value="Especialista em Técnica">Especialista em Técnica</option>
-                        <option value="Suporte">Suporte</option>
-                        <option value="Controlador">Controlador</option>
-                        <option value="Restringido">Restringido</option>
-                    </select>
-                </div>
                 <div class="form-group col-md-2">
                     <label for="maestria">Maestria</label>
                     <input type="number" class="form-control" id="maestria" name="maestria" readonly>
@@ -64,7 +52,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="especializacao1">Especialização 1</label>
+                    <label for="especializacao1">Especialização Principal</label>
                     <div class="especializacao-row">
                         <select id="especializacao1" name="especializacao1" class="form-control">
                             <option value="" selected>-</option>
@@ -79,7 +67,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="especializacao2">Especialização 2</label>
+                    <label for="especializacao2">Especialização Secundária</label>
                     <div class="especializacao-row">
                         <select id="especializacao2" name="especializacao2" class="form-control">
                             <option value="" selected>-</option>
@@ -124,6 +112,12 @@
                     <label id="pe-temp-label" for="peTemp">Pontos de Energia Temporários (PE Temp):</label>
                     <input type="number" id="peTemp" class="form-control">
                 </div>
+            </div>
+            <div class="progress">
+                <div id="pv-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="progress">
+                <div id="pe-bar" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </section>
 
