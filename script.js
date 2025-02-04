@@ -199,6 +199,28 @@ function atualizarBarraEnergia() {
     document.querySelector('#pe-bar').ariaValueNow = pePercent;
 }
 
+function validarEspecializacaoSecundaria() {
+    const especializacao2 = document.querySelector('#especializacao2').value;
+    const atributos = {
+        'Lutador': ['DEX', 'CON'],
+        'Especialista em Combate': ['FOR', 'DEX'],
+        'Especialista em Técnica': ['INT', 'SAB'],
+        'Suporte': ['CAR', 'SAB'],
+        'Controlador': ['CAR', 'SAB']
+    };
+
+    if (especializacao2 && atributos[especializacao2]) {
+        const requisitos = atributos[especializacao2];
+        const valido = requisitos.some(atributo => getModificador(atributo) >= 3); // 16 in attribute means +3 modifier
+        if (!valido) {
+            alert(`Para escolher ${especializacao2} como especialização secundária, você precisa ter pelo menos 16 em ${requisitos.join(' ou ')}.`);
+            document.querySelector('#especializacao2').value = '';
+        }
+    }
+}
+
+document.querySelector('#especializacao2').addEventListener('change', validarEspecializacaoSecundaria);
+
 document.querySelector('#nivel').addEventListener('input', () => {
     calcularPontosDeVida();
     calcularPontosDeEnergia();
